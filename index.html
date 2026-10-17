@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive least-squares regression explorer using casino employee and crime-rate data.">
+  <title>Casino Employees & Crime Rate — Residual Explorer</title>
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Interactive statistics lab</p>
+        <h1>Find the line with the smallest errors.</h1>
+        <p class="lede">Drag <strong>S</strong> to rotate the line through the mean. Your goal is to make the <strong>sum of squared residuals</strong> as small as possible.</p>
+      </div>
+      <div class="metric" aria-live="polite">
+        <span>Current sum of squared residuals (SSE)</span>
+        <strong id="sse">—</strong>
+        <small id="fitStatus">Move S to explore</small>
+      </div>
+    </header>
+
+    <section class="card chart-card" aria-labelledby="chart-title">
+      <div class="card-heading">
+        <div>
+          <p class="kicker">Casino employment and crime</p>
+          <h2 id="chart-title">Residual explorer</h2>
+        </div>
+        <div class="actions">
+          <button id="bestFit" type="button">Reveal the minimum</button>
+          <button id="reset" class="secondary" type="button">Reset</button>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <svg id="chart" role="img" aria-labelledby="chart-title chart-desc" viewBox="0 0 1000 620">
+          <desc id="chart-desc">Scatterplot of casino employees in thousands and crime rate per one thousand population. Drag point S to change the slope of a line passing through the mean.</desc>
+        </svg>
+      </div>
+
+      <div class="readout" aria-label="Current line statistics">
+        <div><span>Slope</span><strong id="slope">—</strong></div>
+        <div><span>Intercept</span><strong id="intercept">—</strong></div>
+        <div><span>Equation</span><strong id="equation">—</strong></div>
+        <div><span>Minimum possible SSE</span><strong id="minSse">—</strong></div>
+      </div>
+      <div class="sse-lesson" aria-live="polite">
+        <div class="sse-copy">
+          <strong id="comparisonTitle">Can you lower the SSE?</strong>
+          <span id="comparisonText">Move S and watch the vertical errors change.</span>
+        </div>
+        <div class="sse-track" aria-hidden="true"><span id="sseBar"></span><i></i></div>
+        <p><strong>Key idea:</strong> The least-squares regression line is the line of fit that minimizes the sum of the squared residuals.</p>
+      </div>
+    </section>
+
+    <section class="lower-grid">
+      <article class="card explanation">
+        <p class="kicker">What you are seeing</p>
+        <h2>Residuals measure vertical error.</h2>
+        <p>A residual is the observed crime rate minus the rate predicted by the line. Blue bars are positive residuals; coral bars are negative.</p>
+        <div class="formula">SSE = Σ(y − ŷ)²</div>
+        <p>Squaring prevents positive and negative errors from canceling. “Least squares” means choosing the line with the <em>least</em> possible total of these <em>squared</em> errors.</p>
+      </article>
+
+      <article class="card data-card">
+        <div class="card-heading compact">
+          <div>
+            <p class="kicker">Source data</p>
+            <h2>Casino employees and crime rate</h2>
+          </div>
+          <button id="toggleTable" class="secondary" type="button" aria-expanded="false" aria-controls="dataTable">Show table</button>
+        </div>
+        <div id="dataTable" class="table-shell" hidden>
+          <table>
+            <thead><tr><th>Year</th><th>Employees, x (thousands)</th><th>Crime rate, y (per 1,000)</th></tr></thead>
+            <tbody>
+              <tr><td>2000</td><td>15</td><td>1.35</td></tr><tr><td>2001</td><td>18</td><td>1.63</td></tr>
+              <tr><td>2002</td><td>24</td><td>2.33</td></tr><tr><td>2003</td><td>22</td><td>2.41</td></tr>
+              <tr><td>2004</td><td>25</td><td>2.63</td></tr><tr><td>2005</td><td>29</td><td>2.93</td></tr>
+              <tr><td>2006</td><td>30</td><td>3.41</td></tr><tr><td>2007</td><td>32</td><td>3.26</td></tr>
+              <tr><td>2008</td><td>35</td><td>3.63</td></tr><tr><td>2009</td><td>38</td><td>4.15</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script src="app.js?v=3"></script>
+</body>
+</html>
